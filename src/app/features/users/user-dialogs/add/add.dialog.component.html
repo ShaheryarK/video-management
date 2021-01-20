@@ -2,38 +2,92 @@
   <h1 mat-dialog-title><strong>Add new User</strong></h1>
 
   <form class="mat-dialog-content" #formControl="ngForm">
-
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input class="form-control" placeholder="username" [(ngModel)]="data.username" name="username" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <input
+          matInput
+          #input
+          class="form-control"
+          placeholder="username"
+          [(ngModel)]="data.username"
+          name="username"
+          required
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
       </mat-form-field>
     </div>
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="data.password" name="password" required placeholder="password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          [(ngModel)]="data.password"
+          name="password"
+          required
+          placeholder="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
       </mat-form-field>
     </div>
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input class="form-control" placeholder="First Name" [(ngModel)]="data.firstname" name="firstname" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <input
+          matInput
+          #input
+          class="form-control"
+          placeholder="First Name"
+          [(ngModel)]="data.firstname"
+          name="firstname"
+          required
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
       </mat-form-field>
     </div>
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input class="form-control" placeholder="Last Name" [(ngModel)]="data.lastname" name="lastname" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <input
+          matInput
+          #input
+          class="form-control"
+          placeholder="Last Name"
+          [(ngModel)]="data.lastname"
+          name="lastname"
+          required
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
       </mat-form-field>
     </div>
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <input
+          matInput
+          #input
+          class="form-control"
+          placeholder="Email"
+          [(ngModel)]="data.email"
+          name="email"
+          required
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
@@ -49,7 +103,10 @@
         >
           Save
         </button>
-      </div>      <button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+      </div>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1">
+        Cancel
+      </button>
     </div>
   </form>
 </div>

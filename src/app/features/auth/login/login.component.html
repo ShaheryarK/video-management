@@ -1,19 +1,53 @@
 <div class="login-container">
   <div class="login-content">
-    <mat-toolbar class="login-toolbar" color="primary">Video Management</mat-toolbar>
+    <mat-toolbar class="login-toolbar" color="primary"
+      >Video Management</mat-toolbar
+    >
     <mat-card>
+      <div *ngIf="isError" class="error-message">
+        <mat-label>
+          {{ errorMessage }}
+        </mat-label>
+      </div>
       <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
         <mat-form-field>
           <mat-icon matPrefix>person_outline</mat-icon>
-          <input autofocus type="text" matInput placeholder="Username" formControlName="username">
+          <input
+            autofocus
+            type="text"
+            matInput
+            placeholder="Username"
+            formControlName="username"
+            required
+          />
+          <mat-error *ngIf="checkError('username', 'required')">
+            Username is required</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field>
           <mat-icon matPrefix>lock_outline</mat-icon>
-          <input type="password" autocomplete="false" matInput placeholder="Password" formControlName="password">
+          <input
+            type="password"
+            autocomplete="false"
+            matInput
+            placeholder="Password"
+            formControlName="password"
+            required
+          />
+          <mat-error *ngIf="checkError('password', 'required')">
+            password is required</mat-error
+          >
         </mat-form-field>
 
-        <button type="submit" mat-raised-button color="primary">Login</button>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="!loginForm.valid"
+        >
+          Login
+        </button>
       </form>
     </mat-card>
   </div>
