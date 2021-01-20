@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-list-item.menu-item{
+  border-bottom: 1px solid lightgray;
+}
+.mat-list-item.menu-item:first-child{
+  border-top: 1px solid lightgray;
+}
+.mat-list-item.sub-menu-item{
+  border-bottom: 1px solid lightgray;
+}
+.mat-list-item-content{
+justify-content: center;
+}
+.p-0{
+  padding: 0px !important;
+}
+.mat-list-base.p-0 {
+  padding-top: 0px;
+}
+.mat-expansion-panel{
+  box-shadow: none !important;
+  background: none;
+}
+.mat-tree{
+  background: none;
+}
+
+.m-10{
+margin: 10px !important;
+}
+.mtb-10{
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}

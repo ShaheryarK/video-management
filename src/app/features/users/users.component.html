@@ -1,0 +1,77 @@
+<h1>Users</h1>
+<div *ngIf="users.length > 0">
+  <ng-container *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: p }">
+    <div class="user-detail-container">
+      <div class="user-expansion-panel">
+        <mat-expansion-panel
+        (click)="toggleIcon()"
+        [togglePosition]="'before'"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="col-md-9">
+              <strong>{{ user?.firstname }} {{ user?.lastname }}</strong>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item>
+            <div class="user-detail-list">
+              <div>First Name :</div>
+              <div>
+                {{ user.firstname}}
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="user-detail-list">
+              <div>Last Name :</div>
+              <div>
+                {{ user.lastname}}
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="user-detail-list">
+              <div>User Name :</div>
+              <div>
+                {{ user.username}}
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="user-detail-list">
+              <div>Email :</div>
+              <div>
+                {{ user.email}}
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div class="user-detail-list">
+              <div>Confirmed :</div>
+              <div>
+                {{ user.confirmed}}
+              </div>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      </div>
+      <div>
+          <mat-icon class="user-more-icon" (click)="deleteUser(user)">more_horiz</mat-icon>
+      </div>
+    </div>
+
+
+  </ng-container>
+  <div class="user-pagination-container">
+    <div>
+      <button mat-raised-button color="primary"  (click)="openAddDialog()">Add User</button>
+    </div>
+    <div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+
+</div>

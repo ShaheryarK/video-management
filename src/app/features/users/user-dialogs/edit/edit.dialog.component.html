@@ -1,0 +1,36 @@
+<div class="container">
+  <h3 mat-dialog-title>Issue id: {{data.id}}</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="primary">
+        <input matInput #input class="form-control" placeholder="First Name" [(ngModel)]="data.firstname" name="firstname" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="primary">
+        <input matInput #input class="form-control" placeholder="Last Name" [(ngModel)]="data.lastname" name="lastname" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="primary">
+        <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="primary">
+        <input matInput #input class="form-control" placeholder="username" [(ngModel)]="data.username" name="username" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-raised-button type="submit" [disabled]="!formControl.valid" (click)="stopEdit()">Save</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

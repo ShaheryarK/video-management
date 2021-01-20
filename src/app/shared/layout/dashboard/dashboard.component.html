@@ -1,0 +1,66 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>
+      <div>Video <br />Management</div></mat-toolbar
+    >
+    <mat-nav-list>
+      <ng-container *ngFor="let item of menuItems">
+        <a mat-list-item [routerLink]="item.menuItem.url" routerLinkActive="active-list-item" class="menu-item" (click)="checkForSubMenu(item)"
+        >{{item.menuItem.name}}</a
+      >
+      </ng-container>
+
+    </mat-nav-list>
+    <div class="log-out-container">
+      <button mat-raised-button color="primary" (click)="onLogout()" class="log-out-btn">Log Out</button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <div class="searchBox-container">
+        <input
+          class="searchBox"
+          type="text"
+          placeholder="Search for user,tag,category"
+        />
+        <mat-icon>search</mat-icon>
+      </div>
+
+      <div class="time-container">
+        <p>{{ now | date: "d. MMM y" }}, {{ now | date: "HH:mm" }}</p>
+      </div>
+    </mat-toolbar>
+    <div class="nav-container">
+      <div class="sub-nav-container" *ngIf="subMenu.length > 0">
+        <mat-nav-list class="p-0">
+          <ng-container *ngFor="let menuItem of subMenu">
+            <a mat-list-item [routerLink]="menuItem.url" routerLinkActive="active-list-item" class="sub-menu-item"
+            >{{menuItem.name}}</a
+          >
+          </ng-container>
+        </mat-nav-list>
+      </div>
+      <div class="nav-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,9 @@
+<div class="container">
+  <h1 mat-dialog-title><strong>{{data.name}}</strong></h1>
+  <video id="my-video" controls preload="auto" width="400">
+    <source [src]='baseUrl+data.video.url' type='video/mp4'>
+  </video>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1">close</button>
+  </div>
+</div>
