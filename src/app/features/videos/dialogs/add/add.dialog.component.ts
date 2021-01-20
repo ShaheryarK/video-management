@@ -16,7 +16,7 @@ import {
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { map, startWith } from 'rxjs/operators';
 import { TagsService } from 'src/app/services/tags.service';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+// const URL = 'https://video-management-api.herokuapp.com/uploads/';
 
 @Component({
   templateUrl: './add.dialog.component.html',
@@ -40,6 +40,7 @@ export class AddDialogComponent {
   @ViewChild('auto') matAutocomplete!: MatAutocomplete;
   dataToSubmit: VideoEntry;
   previewUrl: any = '';
+  loading:boolean = false;
   constructor(
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Video,
@@ -50,7 +51,7 @@ export class AddDialogComponent {
     this.dataToSubmit = new VideoEntry();
 
     this.uploader = new FileUploader({
-      url: URL,
+      // url: URL,
       disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item: any) => {
@@ -107,6 +108,7 @@ export class AddDialogComponent {
     this.onSelectFile();
   }
   submit() {
+    this.loading = true;
     let tagsIds: any[] = [];
     this.tags.forEach((tag) => {
       let id = this.allTags.find((ta) => ta.name == tag.name)?.id;
@@ -138,7 +140,10 @@ export class AddDialogComponent {
       .toPromise()
       .then((res) => {
         console.log({ res });
+        this.loading = false;
         this.dialogRef.close(1);
+      }).catch(error=>{
+        this.loading = false;
       });
   }
   onSelectFile() {
@@ -155,16 +160,6 @@ export class AddDialogComponent {
     this.dialogRef.close();
   }
 
-  public confirmAdd(): void {
-    console.log(this.data);
-    // this.dataService
-    //   .save(this.data)
-    //   .toPromise()
-    //   .then((res) => {
-    //     console.log({ res });
-    //     this.dialogRef.close(1);
-    //   });
-  }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;

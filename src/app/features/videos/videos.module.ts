@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     VideosComponent,
@@ -42,6 +43,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatDialogModule,
     MatSelectModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
     MatAutocompleteModule,
     FormsModule,
     MatInputModule,

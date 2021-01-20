@@ -15,4 +15,7 @@ export class VideoService extends CrudService<Video, string>  {
   addVideo(data:any){
     return this._http.post<any>(`${environment.baseUrl}/videos`, data);
   }
+  updateVideo(data:any,id:string){
+    return this._http.put<any>(`${environment.baseUrl}/videos/${id}`, data);
+  }
 }

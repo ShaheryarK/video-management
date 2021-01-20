@@ -27,18 +27,14 @@ export class AddDialogComponent {
   }
 
   submit() {
-  // emppty stuff
-  }
+    console.log(this.data);
+    this.dataService.registerUser(this.data).toPromise().then(res=>{
+      console.log({res});
+      this.dialogRef.close(1);
+    });  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  public confirmAdd(): void {
-    console.log(this.data);
-    this.dataService.registerUser(this.data).toPromise().then(res=>{
-      console.log({res});
-      this.dialogRef.close(1);
-    });
-  }
 }

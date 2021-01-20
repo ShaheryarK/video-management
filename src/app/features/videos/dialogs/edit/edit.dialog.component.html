@@ -1,32 +1,121 @@
 <div class="container">
-  <h3 mat-dialog-title>Issue id: {{data.id}}</h3>
+  <h1 mat-dialog-title><strong>Edit {{data.name}}</strong></h1>
 
-  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div class="form">
+      <div
+        ng2FileDrop
+        [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+        (fileOver)="fileOverBase($event)"
+        [uploader]="uploader"
+        (onFileDrop)="onFileDrop($event)"
+        class="well my-drop-zone"
+      *ngIf="selectedFile == null"
+      >
+        Drag & Drop here
+      </div>
+      <div *ngIf="selectedFile != null" class="video-preview-container">
+        <video [src]="previewUrl" *ngIf="previewUrl" width="400" controls></video>
+        <button mat-raised-button (click)="selectedFile = null; videoChanged = true;" class="mtb-10">
+          Change
+        </button>
+      </div>
+    </div>
+    <div class="form">
+      <mat-form-field color="primary">
+        <input
+          matInput
+          #input
+          class="form-control"
+          placeholder="name"
+          [(ngModel)]="selectedVideo.name"
+          name="name"
+          required
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="primary">
+        <textarea
+          matInput
+          placeholder="description"
+          class="form-control"
+          placeholder="description"
+          [(ngModel)]="selectedVideo.description"
+          name="description"
+        ></textarea>
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
 
     <div class="form">
       <mat-form-field color="primary">
-        <input matInput #input class="form-control" placeholder="name" [(ngModel)]="data.name" name="name" required >
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Toppings</mat-label>
-        <mat-select [(ngModel)]="data.category" multiple>
-          <mat-option *ngFor="let category of categories" [value]="category">{{category.title}}</mat-option>
+        <mat-label>Category</mat-label>
+        <mat-select
+          [(ngModel)]="selectedVideo.category.id"
+          name="categories"
+          class="form-control"
+        >
+          <mat-option *ngFor="let category of categories" [value]="category.id">{{
+            category.parent == null
+              ? category.title
+              : category.parent.title + "/" + category.title
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="form">
-      <mat-form-field color="primary">
-        <textarea matInput #input class="form-control" placeholder="Tags" [(ngModel)]="data.tags" name="tags" required ></textarea>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      <mat-form-field class="example-chip-list" color="primary">
+        <mat-label>Tags</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip
+            *ngFor="let tag of tags"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(tag.name)"
+          >
+            {{ tag.name }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="New tag..."
+            #tagInput
+            [formControl]="tagCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+          />
+        </mat-chip-list>
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
+        >
+          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            {{ tag.name }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
 
     <div mat-dialog-actions>
-      <button mat-raised-button type="submit" [disabled]="!formControl.valid" (click)="stopEdit()">Save</button>
-      <button mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="!formControl.valid"
+        (click)="submit()"
+      >
+        Save
+      </button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1">
+        Cancel
+      </button>
     </div>
   </form>
 </div>
+
