@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:"http://localhost:1337",
+  baseUrl:"https://video-management-api.herokuapp.com",
 };
 
 /*
