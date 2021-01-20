@@ -14,6 +14,7 @@ import { DeleteDialogComponent } from './user-dialogs/delete/delete.dialog.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [UsersComponent,AddDialogComponent,EditDialogComponent,DeleteDialogComponent],
@@ -27,6 +28,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatDialogModule,
     FormsModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     NgxPaginationModule
   ],

@@ -42,6 +42,7 @@ export class EditDialogComponent {
   dataToSubmit: VideoEntry;
   previewUrl: any = '';
   videoChanged: boolean = false;
+  loading:boolean = false;
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Video,
@@ -119,6 +120,7 @@ export class EditDialogComponent {
     this.onSelectFile();
   }
   submit() {
+    this.loading = true;
     let tagsIds: any[] = [];
     this.tags.forEach((tag) => {
       let id = this.allTags.find((ta) => ta.name == tag.name)?.id;
@@ -152,7 +154,10 @@ export class EditDialogComponent {
       .toPromise()
       .then((res) => {
         console.log({ res });
+        this.loading = false;
         this.dialogRef.close(1);
+      }).catch(error=>{
+        this.loading = false;
       });
   }
   onSelectFile() {
@@ -167,17 +172,6 @@ export class EditDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  public confirmAdd(): void {
-    console.log(this.data);
-    // this.dataService
-    //   .save(this.data)
-    //   .toPromise()
-    //   .then((res) => {
-    //     console.log({ res });
-    //     this.dialogRef.close(1);
-    //   });
   }
 
   add(event: MatChipInputEvent): void {

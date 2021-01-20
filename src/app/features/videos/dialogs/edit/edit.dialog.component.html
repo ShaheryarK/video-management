@@ -104,15 +104,21 @@
     </div>
 
     <div mat-dialog-actions>
-      <button
-        mat-raised-button
-        type="submit"
-        [disabled]="!formControl.valid"
-        (click)="submit()"
-      >
-        Save
-      </button>
-      <button mat-raised-button (click)="onNoClick()" tabindex="-1">
+      <div class="button-container">
+        <div class="spinner-container" *ngIf="loading">
+          <mat-spinner diameter="24" color="primary"></mat-spinner>
+        </div>
+        <button
+          mat-raised-button
+          type="submit"
+          [disabled]="formControl.invalid || loading"
+          (click)="submit()"
+        >
+          Save
+        </button>
+      </div>
+
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" [disabled]="loading">
         Cancel
       </button>
     </div>
