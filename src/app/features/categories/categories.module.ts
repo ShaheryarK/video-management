@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator'
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [CategoriesComponent, AddDialogComponent,
     EditDialogComponent,
@@ -24,6 +25,7 @@ import {MatPaginatorModule} from '@angular/material/paginator'
     CategoriesRoutingModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatIconModule,
     MatSelectModule,
     MatButtonModule,

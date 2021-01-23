@@ -12,36 +12,46 @@ import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
-
   displayedColumns: string[] = ['id', 'title', 'parent', 'actions'];
   dataSource: MatTableDataSource<NestedCategory>;
-
-  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort!: MatSort;
-  ngOnInit(){
-
+  @ViewChild(MatPaginator, { static: false })
+  set paginator(value: MatPaginator) {
+    if (this.dataSource) {
+      this.dataSource.paginator = value;
+    }
   }
-  constructor(private categoryService:CategoryService, public dialogService: MatDialog, private ngxService: NgxUiLoaderService) {
+  @ViewChild(MatSort, { static: false })
+  set sort(value: MatSort) {
+    if (this.dataSource) {
+      this.dataSource.sort = value;
+    }
+  }
+  ngOnInit() {}
+  constructor(
+    private categoryService: CategoryService,
+    public dialogService: MatDialog,
+    private ngxService: NgxUiLoaderService
+  ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
     this.loadTableData();
   }
 
-  loadTableData(){
-    this.ngxService.start()
-    this.categoryService.findAll().toPromise().then(res=>{
-      this.dataSource = new MatTableDataSource(res);
-      this.ngxService.stop();
-    }).catch(error=>{
-      this.ngxService.stop();
-    })
-  }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  loadTableData() {
+    this.ngxService.start();
+    this.categoryService
+      .findAll()
+      .toPromise()
+      .then((res) => {
+        this.dataSource = new MatTableDataSource(res);
+        this.ngxService.stop();
+      })
+      .catch((error) => {
+        this.ngxService.stop();
+      });
   }
 
   applyFilter(event: Event) {
@@ -52,12 +62,12 @@ export class CategoriesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  openAddDialog(){
+  openAddDialog() {
     const dialogRef = this.dialogService.open(AddDialogComponent, {
-      data: {title:"",parent:"None"}
+      data: { title: '', parent: 'None' },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
@@ -65,13 +75,12 @@ export class CategoriesComponent implements OnInit {
       }
     });
   }
-  startEdit(category:any){
-
+  startEdit(category: any) {
     const dialogRef = this.dialogService.open(EditDialogComponent, {
-      data: category
+      data: category,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         // And lastly refresh table
         this.refreshTable();
@@ -79,12 +88,12 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  deleteItem(category:any){
+  deleteItem(category: any) {
     const dialogRef = this.dialogService.open(DeleteDialogComponent, {
-      data: category
+      data: category,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         this.refreshTable();
       }
@@ -95,10 +104,8 @@ export class CategoriesComponent implements OnInit {
     this.loadTableData();
   }
 
-
   private refreshTable() {
     this.reload();
     this.paginator._changePageSize(this.paginator.pageSize);
   }
-
 }
