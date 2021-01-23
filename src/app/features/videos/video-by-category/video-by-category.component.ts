@@ -108,6 +108,11 @@ export class VideoByCategoryComponent implements OnInit {
     count = cat.videos.length;
     cat.children.forEach((child) => {
       count = count + child.videos.length;
+      if(child.children != null)
+      child.children.forEach((catChild)=>{
+        count += this.getVideoCount(catChild);
+      })
+      else return
     });
     return count;
   }

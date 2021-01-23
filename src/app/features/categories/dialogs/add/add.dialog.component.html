@@ -1,0 +1,62 @@
+<div class="container">
+  <h1 mat-dialog-title><strong>Add New Category</strong></h1>
+
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field color="primary">
+        <input
+          matInput
+          #input
+          class="form-control"
+          placeholder="Title"
+          [(ngModel)]="data.title"
+          name="title"
+          required
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="primary">
+        <mat-label>Parent Category</mat-label>
+        <mat-select
+          [(ngModel)]="data.parent"
+          name="parent"
+          class="form-control"
+          required
+        >
+          <mat-option  [value]="'None'">None</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category.id">{{
+            category.parent == null
+              ? category.title
+              : category.parent.title + "/" + category.title
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <div class="button-container">
+        <div class="spinner-container" *ngIf="loading">
+          <mat-spinner diameter="24" color="primary"></mat-spinner>
+        </div>
+        <button
+          mat-raised-button
+          type="submit"
+          [disabled]="formControl.invalid || loading"
+          (click)="submit()"
+        >
+          Save
+        </button>
+      </div>
+
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" [disabled]="loading" >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

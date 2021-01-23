@@ -35,3 +35,11 @@ margin: 10px !important;
   margin-top: 10px !important;
   margin-bottom: 10px !important;
 }
+
+th.mat-header-cell{
+  text-align: center !important;
+}
+td.mat-cell, th.mat-header-cell {
+  text-align: center;
+  justify-content:center;
+}
